@@ -42,17 +42,17 @@ const login = asyncHandler(async (req, res) => {
 
 
     res.cookie('jwt', refreshToken, {
-        httpOnly: true, //accessible only by web server 
-        secure: true, //https
-        sameSite: 'None', //cross-site cookie 
-        maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+        maxAge: 7 * 24 * 60 * 60 * 1000
     })
 
-    // Send accessToken containing username and roles 
+
     res.json({ accessToken })
 })
 
-// @route GET /auth/refresh
+
 
 const refresh = (req, res) => {
     const cookies = req.cookies
@@ -88,11 +88,11 @@ const refresh = (req, res) => {
 }
 
 
-// @route POST /auth/logout
+
 
 const logout = (req, res) => {
     const cookies = req.cookies
-    if (!cookies?.jwt) return res.sendStatus(204) //No content
+    if (!cookies?.jwt) return res.sendStatus(204)
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
     res.json({ message: 'Cookie cleared' })
 }
